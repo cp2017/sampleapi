@@ -1,0 +1,16 @@
+{
+  "name": "sampleapi",
+  "version": "1.0.0",
+  "description": "A simple API server that has a ping/pong endpoint used to test the Cloud Prototyping project.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikola Stavrevski",
+  "license": "ISC",
+  "dependencies": {
+        "express": "~4.14.0",
+        "body-parser": "~1.16.0",
+        "cp2017sign":"~1.0.1"
+    }
+}
