@@ -25,12 +25,15 @@ var router = express.Router();              // get an instance of the express Ro
 router.use(function(req, res, next) {
     // do logging
     console.log('Request came in, trying to verify it.');
+
     if(req.get("marketplace-signature")!=undefined){
     var marketplacesignaturestring = new Buffer(req.get("marketplace-signature"),'base64').toString('utf-8');
     var marketplacesignature = JSON.parse(marketplacesignaturestring);
     if(subscribersList.indexOf(marketplacesignature.publicKey)==-1)
     {
-    	if(cp2017sign.verify(req.body,marketplacesignature.v,marketplacesignature.r,marketplacesignature.s,marketplacesignature.publicKey))
+    	var result=cp2017sign.verify(req.body.message,marketplacesignature.v,marketplacesignature.r,marketplacesignature.s,marketplacesignature.publicKey);
+    	console.log(result);
+    	if(result)
     	{
     		next(); // make sure we go to the next routes and don't stop here
     	}
