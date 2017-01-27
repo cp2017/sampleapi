@@ -29,11 +29,12 @@ router.use(function(req, res, next) {
     if(req.get("marketplace-signature")!=undefined){
     var marketplacesignaturestring = new Buffer(req.get("marketplace-signature"),'base64').toString('utf-8');
     var marketplacesignature = JSON.parse(marketplacesignaturestring);
+
     if(subscribersList.indexOf(marketplacesignature.publicKey)!=-1)
     {
     	var result=cp2017sign.verify(req.body.message,marketplacesignature.v,marketplacesignature.r,marketplacesignature.s,marketplacesignature.publicKey);
     	console.log(result);
-    	if(result)
+    	if(result===true)
     	{
     		next(); // make sure we go to the next routes and don't stop here
     	}
