@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/cp2017/sampleapi#readme",
   "dependencies": {
-    "cp2017sign": "^1.0.2"
+    "cp2017sign": "^1.0.2",
+    "request": "^2.79.0"
   }
 }

@@ -4,11 +4,11 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var cp2017sign = require('cp2017sign');
-var subscribersList=getSubscribersFromWebapp();
+var express         =   require('express');        // call express
+var app             =   express();                 // define our app using express
+var bodyParser      =   require('body-parser');
+var cp2017sign      =   require('cp2017sign');
+var subscribersList =   getSubscribersFromWebapp();
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -27,14 +27,25 @@ router.use(function(req, res, next) {
     console.log('Request came in, trying to verify it.');
 
     if(req.get("marketplace-signature")!=undefined){
-    var marketplacesignaturestring = new Buffer(req.get("marketplace-signature"),'base64').toString('utf-8');
+    
+    /*
+        Convert signature string back to object
+     */
+    var marketplacesignaturestring = Buffer.from(req.get("marketplace-signature"),'base64').toString('utf-8');
     var marketplacesignature = JSON.parse(marketplacesignaturestring);
+    var s = Buffer.from(marketplacesignature.s, 'hex');
+    var r = Buffer.from(marketplacesignature.r, 'hex');
+    var publicKey = Buffer.from(marketplacesignature.publicKey, 'hex');
+    var body = req.body.message || '';
+    marketplacesignature.s = s;
+    marketplacesignature.r = r;
+    marketplacesignature.publicKey = publicKey;
 
-    if(subscribersList.indexOf(marketplacesignature.publicKey)!=-1)
+    if(subscribersList.indexOf(marketplacesignature.publicKey.toString('hex')) !== -1)
     {
-    	var result=cp2017sign.verify(req.body.message,marketplacesignature.v,marketplacesignature.r,marketplacesignature.s,marketplacesignature.publicKey);
+    	var result = cp2017sign.verify(body, marketplacesignature.v, marketplacesignature.r, marketplacesignature.s, marketplacesignature.publicKey);
     	console.log(result);
-    	if(result===true)
+    	if(result === true)
     	{
     		next(); // make sure we go to the next routes and don't stop here
     	}
@@ -76,10 +87,10 @@ router.route('/ping')
 app.use('/api', router);
 
 // FUNCTION TO GET THE SUBSCRIBERS FOR OUR MICROSERVICE -----------
-// for now a dummy list, TODO: Query the webapp for the real list
+// for now a dummy list of hex string public keys, TODO: Query the webapp for the real list
 function getSubscribersFromWebapp()
 {
-	return ["2bxvlZHLtq99aum","so0FuKNLdsNKme8","4vL9yf3FkncwbEM","7GGCeU3sCCGFO2Y","bJzkEzJ0r1btUD6","zlvVs2EDe8y0FJb","M2i0lf4mbcfoW0g","lNVypbDMKxg313R","cV4WUQhmxeuptNh","fV28H9UgPIRLjdO"];
+	return ["f77b1502bb6d5ddec3f174fb23dda9a033737c442f29c23e9b3211746fcf306f69126abf2a30f10cab88c001ba9d91757a069984765c4a74a00653ce8c2adff2","so0FuKNLdsNKme8","4vL9yf3FkncwbEM","7GGCeU3sCCGFO2Y","bJzkEzJ0r1btUD6","zlvVs2EDe8y0FJb","M2i0lf4mbcfoW0g","lNVypbDMKxg313R","cV4WUQhmxeuptNh","fV28H9UgPIRLjdO"];
 }
 // START THE SERVER
 // =============================================================================
