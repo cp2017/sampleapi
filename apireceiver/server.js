@@ -15,7 +15,7 @@ var subscribersList=getSubscribersFromWebapp();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || 3000;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -29,7 +29,7 @@ router.use(function(req, res, next) {
     if(req.get("marketplace-signature")!=undefined){
     var marketplacesignaturestring = new Buffer(req.get("marketplace-signature"),'base64').toString('utf-8');
     var marketplacesignature = JSON.parse(marketplacesignaturestring);
-    if(subscribersList.indexOf(marketplacesignature.publicKey)==-1)
+    if(subscribersList.indexOf(marketplacesignature.publicKey)!=-1)
     {
     	var result=cp2017sign.verify(req.body.message,marketplacesignature.v,marketplacesignature.r,marketplacesignature.s,marketplacesignature.publicKey);
     	console.log(result);
