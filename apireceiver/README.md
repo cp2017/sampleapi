@@ -61,4 +61,5 @@ So if you run the sample using the default configuration, you can call it using 
 ```
 http://localhost:3000/api/ping
 ```
+**NOTE: in the current version it is assumed that you send either no body at all or a form containing "message" as a key and the message you used to sign the request as a value.**
 If your request is signed correctly, you should receive ```{message:'Pong!'}``` as a response, otherwise there will be an error.
