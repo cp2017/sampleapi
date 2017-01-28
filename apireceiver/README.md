@@ -32,6 +32,8 @@ After a short time, the server will be ready to listen for requests at the speci
 5. Sign your request
 -------------------
 Before sending your request, you need to sign it so this receiver can verify the integrity of your message and identify you as an authorized user.
+For this receiver, we created the [apisender](https://github.com/cp2017/sampleapi/tree/master/apisender) in this project which performs the signature process for you. If you want to do it yourself, please follow this description:
+
 We recommend to use the [cp2017sign](https://www.npmjs.com/package/cp2017sign) package to open your ethereum private key and sign the message.
 The signature object you get from the library looks similar to this:
 ```javascript
