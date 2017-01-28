@@ -13,8 +13,15 @@ From this folder in your command line, run ```npm install``` to install the proj
 
 3. Configuration
 ----------------
-TBD
-One way to get your ethereum public key is to use our [cp2017sign](https://www.npmjs.com/package/cp2017sign) project built upon the libraries ethereumjs-util and keythereum.
+Before running this application, make sure the following variable are set up for your needs:
+```javascript
+var logging = true;         // set to true to enable logging
+var ethAddress = '';        // your ethereum account address or '' if your default account should be used
+var ethDataDir = '';        // your ethereum data directory or '' if your the default location ~/.ethereum/ should be used.
+var ethPassword = '';       // your ethereum account password
+var requestUrl = 'http://localhost:3000/api/ping';    // the url of the message receiver
+var messageBody = 'Ping!';  // The message to sign and send in the request
+```
 
 4. Run sender
 -------------
