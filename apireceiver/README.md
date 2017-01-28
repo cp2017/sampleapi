@@ -29,7 +29,7 @@ One way to get your ethereum public key is to use our [cp2017sign](https://www.n
 Start the server by running ```npm run start```.
 After a short time, the server will be ready to listen for requests at the specified port.
 
-5.Sign your request
+5. Sign your request
 -------------------
 Before sending your request, you need to sign it so this receiver can verify the integrity of your message and identify you as an authorized user.
 We recommend to use the [cp2017sign](https://www.npmjs.com/package/cp2017sign) package to open your ethereum private key and sign the message.
