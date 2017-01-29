@@ -8,5 +8,6 @@ WORKDIR /opt/apisender/
 RUN npm install request
 COPY package.json /opt/apisender/
 RUN npm install
-COPY . /opt/apisender/
+COPY server.js opt/start.sh \
+     /opt/apisender/
 CMD ["/opt/apisender/start.sh"]
