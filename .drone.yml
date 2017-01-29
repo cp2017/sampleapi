@@ -9,8 +9,9 @@ pipeline:
   docker:
     image: plugins/docker
     username: cp2017
-    password: cp2017
+    password: $DOCKER_PASSWORD
     repo: cp2017/apireceiver
+    context: apireceiver
     dockerfile: apireceiver/Dockerfile
     tags:
      - latest
@@ -18,8 +19,9 @@ pipeline:
   docker:
     image: plugins/docker
     username: cp2017
-    password: cp2017
+    password: $DOCKER_PASSWORD
     repo: cp2017/apisender
+    context: apisender
     dockerfile: apisender/Dockerfile
     tags:
      - latest

@@ -10,12 +10,10 @@ fi
 
 mv server.js server.js.orig
 set -x
-#|sed -e "s#ethAddress = ''.*#ethAddress = '${ETH_ADDR}';#" \
 cat server.js.orig \
   |sed -e "s#ethDataDir = ''.*#ethDataDir = '${ETH_DATADIR}';#" \
   |sed -e "s#ethPassword = ''.*#ethPassword = '${ETH_PW}';#" > server.js
-
-ln -s ${ETH_DATADIR} ${HOME}/.ethereum
+#ln -s ${ETH_DATADIR} ${HOME}/.ethereum
 npm start
 if [ "X${HANG_IN_THERE}" == "Xtrue" ];then
     tail -f /dev/null
