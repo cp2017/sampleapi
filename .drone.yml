@@ -9,14 +9,18 @@ pipeline:
   docker:
     image: plugins/docker
     username: cp2017
+    password: cp2017
     repo: cp2017/apireceiver
     dockerfile: apireceiver/Dockerfile
     tags:
      - latest
+     - ${DRONE_BUILD_NUMBER}
   docker:
     image: plugins/docker
     username: cp2017
+    password: cp2017
     repo: cp2017/apisender
     dockerfile: apisender/Dockerfile
     tags:
      - latest
+     - ${DRONE_BUILD_NUMBER}
