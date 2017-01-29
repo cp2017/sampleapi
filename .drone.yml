@@ -1,0 +1,22 @@
+pipeline:
+  clone:
+    image: plugins/git
+    tags: true
+  build:
+    image: node:6.9.2
+    commands:
+      - cd apireceiver ; npm install
+  docker:
+    image: plugins/docker
+    username: cp2017
+    repo: cp2017/apireceiver
+    dockerfile: apireceiver/Dockerfile
+    tags:
+     - latest
+  docker:
+    image: plugins/docker
+    username: cp2017
+    repo: cp2017/apisender
+    dockerfile: apisender/Dockerfile
+    tags:
+     - latest
