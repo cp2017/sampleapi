@@ -6,8 +6,6 @@ ENV ETH_ADDR=http://localhost:8545 \
     HANG_IN_THERE=false
 WORKDIR /opt/apisender/
 RUN npm install request
-COPY package.json /opt/apisender/
+COPY . /opt/apisender/
 RUN npm install
-COPY server.js opt/start.sh \
-     /opt/apisender/
 CMD ["/opt/apisender/start.sh"]
