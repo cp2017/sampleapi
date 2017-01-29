@@ -18,4 +18,4 @@ if [ ${WAIT} -eq 1 ];then
     sleep 10
 fi
 docker-compose up apisender
-docker rm -f
+docker-compose rm -f

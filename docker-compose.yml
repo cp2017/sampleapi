@@ -21,4 +21,4 @@ apisender:
       - ETH_PW=pw0
       - ETH_DATADIR=/data/db
       # if you want the container to stick around and not exit after it failed
-      - HANG_IN_THERE=${HANG_IN_THERE}
+      - HANG_IN_THERE=false
