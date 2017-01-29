@@ -1,4 +1,4 @@
-# sampleapi
+# sampleapi [![Build Status](http://ec2-54-194-144-141.eu-west-1.compute.amazonaws.com/api/badges/cp2017/sampleapi/status.svg)](http://ec2-54-194-144-141.eu-west-1.compute.amazonaws.com/cp2017/sampleapi)
 A Sample API Server that replies with Pong! on every GET, POST and PUT request.
 It checks if the public key sent is in the list of subscribers, and then verifies the message.
 
