@@ -1,0 +1,24 @@
+geth:
+    image: cp2017/geth:2017-01-26.02
+    container_name: geth
+    net: host
+    environment:
+      - GETH_TEST_DATABASE=true
+      - GETH_BOOTSTRAP=false
+apireceiver:
+    image: cp2017/apireceiver
+    container_name: apireceiver
+    net: host
+    volumes_from:
+      - geth
+apisender:
+    image: cp2017/apisender
+    container_name: apisender
+    net: host
+    volumes_from:
+      - geth
+    environment:
+      - ETH_PW=pw0
+      - ETH_DATADIR=/data/db
+      # if you want the container to stick around and not exit after it failed
+      - HANG_IN_THERE=${HANG_IN_THERE}
