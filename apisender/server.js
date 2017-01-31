@@ -19,7 +19,7 @@ var sendTestMessage = function(){
       console.log();
     }
 
-    if(signature.s === undefined || signature.v === undefined || signature.r === undefined){
+    if(signature.signature === undefined || signature.recovery === undefined){
       console.error("unable to sign body. Check private key and public key.");
       return;
     }
@@ -27,21 +27,7 @@ var sendTestMessage = function(){
     /*
       prepare signature data for sending
      */
-    var s = signature.s.toString('hex');
-    var r = signature.r.toString('hex');
-    signature.publicKey = publicKey.toString('hex');
-    if(logging == true){
-      console.log("Signature object:");
-      console.log(signature);
-      console.log();
-    }
-    signature.s = s;
-    signature.r = r;
-
-    /*
-      convert signature object to base64-encoded string
-     */
-    var signatureString = Buffer.from(JSON.stringify(signature), 'utf-8').toString('base64');
+    var signatureString = cp2017sign.signatureToBase64String(signature, publicKey)
     if(logging == true){
       console.log("Signature string: " + signatureString);
       console.log();

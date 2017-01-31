@@ -9,8 +9,8 @@
   "author": "Nikola Stavrevski",
   "license": "ISC",
   "dependencies": {
-        "express": "~4.14.0",
-        "body-parser": "~1.16.0",
-        "cp2017sign":"~1.0.1"
-    }
+    "body-parser": "~1.16.0",
+    "cp2017sign": "^1.2.0",
+    "express": "~4.14.0"
+  }
 }
