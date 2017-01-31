@@ -31,25 +31,25 @@ router.use(function(req, res, next) {
     /*
         Convert signature string back to object
      */
-    var marketplacesignaturestring = Buffer.from(req.get("marketplace-signature"),'base64').toString('utf-8');
-    var marketplacesignature = JSON.parse(marketplacesignaturestring);
-    var s = Buffer.from(marketplacesignature.s, 'hex');
-    var r = Buffer.from(marketplacesignature.r, 'hex');
-    var publicKey = Buffer.from(marketplacesignature.publicKey, 'hex');
+    var marketplacesignaturestring = req.get('marketplace-signature') || '';
+    var marketplacesignature = cp2017sign.signatureFromBase64String(marketplacesignaturestring)
     var body = req.body.message || '';
-    marketplacesignature.s = s;
-    marketplacesignature.r = r;
-    marketplacesignature.publicKey = publicKey;
 
     if(subscribersList.indexOf(marketplacesignature.publicKey.toString('hex')) !== -1)
     {
-    	var result = cp2017sign.verify(body, marketplacesignature.v, marketplacesignature.r, marketplacesignature.s, marketplacesignature.publicKey);
+    	var result = cp2017sign.verifySignature(body, marketplacesignature);
     	console.log(result);
     	if(result === true)
     	{
-    		next(); // make sure we go to the next routes and don't stop here
+    		next() // make sure we go to the next routes and don't stop here
     	}
-    	else res.status(500).send("Verification failed!");
+    	else {
+            if(result instanceof Error){
+                res.status(500).send(result.message)
+            } else {
+                res.status(500).send("Verification failed!")
+            }
+        }
     }
     else res.status(500).send("You are not subscribed to this service!");
 	}
