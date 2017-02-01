@@ -1,0 +1,45 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Ping",
+        "description": "#### accepts message from an HTTP POST in a form with a parameter named \"message\"\nFeel free to use **Try Operation** to test it. The server will\ngive you feedback whether you are authorized to use the api and signed your message correctly.\n"
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "127.0.0.0:3000",
+    "basePath": "/api",
+    "paths": {
+        "/ping": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Pong",
+                        "examples": {
+                            "message": "Pong!"
+                        }
+                    },
+                    "500": {
+                        "description": "in case of any error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "marketplace-signature",
+                        "in": "header",
+                        "required": true,
+                        "description": "the message signature",
+                        "type": "string"
+                    },
+                    {
+                        "name": "message",
+                        "in": "formData",
+                        "description": "your message to the api",
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    }
+}
