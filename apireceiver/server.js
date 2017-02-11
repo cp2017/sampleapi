@@ -23,6 +23,14 @@ var router = express.Router();              // get an instance of the express Ro
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
+    var url = req.url;
+    if(url.endsWith("monitor")){
+        console.log("Monitor request arrived.");
+        next();
+        return;
+    }
+    console.log(req.url);
+
     // do logging
     console.log('Request came in, trying to verify it.');
 
@@ -61,6 +69,10 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+router.route('/monitor').all(function(req, res){
+    res.status(200).send("Thanks for monitoring!");
+});
+
 router.route('/ping')
 	//return a pong if it was a GET request
 	.get(function(req,res)
@@ -90,7 +102,7 @@ app.use('/api', router);
 // for now a dummy list of hex string public keys, TODO: Query the webapp for the real list
 function getSubscribersFromWebapp()
 {
-	return ["f77b1502bb6d5ddec3f174fb23dda9a033737c442f29c23e9b3211746fcf306f69126abf2a30f10cab88c001ba9d91757a069984765c4a74a00653ce8c2adff2","so0FuKNLdsNKme8","4vL9yf3FkncwbEM","7GGCeU3sCCGFO2Y","bJzkEzJ0r1btUD6","zlvVs2EDe8y0FJb","M2i0lf4mbcfoW0g","lNVypbDMKxg313R","cV4WUQhmxeuptNh","fV28H9UgPIRLjdO"];
+	return ["f77b1502bb6d5ddec3f174fb23dda9a033737c442f29c23e9b3211746fcf306f69126abf2a30f10cab88c001ba9d91757a069984765c4a74a00653ce8c2adff2"];
 }
 // START THE SERVER
 // =============================================================================
