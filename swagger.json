@@ -8,7 +8,7 @@
     "schemes": [
         "http"
     ],
-    "host": "127.0.0.0:3000",
+    "host": "127.0.0.1:3000",
     "basePath": "/api",
     "paths": {
         "/monitor": {
